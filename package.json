@@ -1,7 +1,7 @@
 {
   "name": "onli-reducer",
   "version": "0.0.1",
-  "description": "One line reducer. State management with Pure React and no boilerplate.",
+  "description": "One line reducer. Simple state management without boilerplate.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
