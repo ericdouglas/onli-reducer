@@ -1,6 +1,6 @@
 {
   "name": "onli-reducer",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "One line reducer. Simple state management without boilerplate.",
   "main": "src/index.js",
   "scripts": {

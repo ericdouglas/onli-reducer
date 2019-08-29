@@ -1,11 +1,8 @@
-const onliReducer = (dispatch, types) => {
-  const newDispatch = type => action => dispatch({ type, ...action })
-  const send = types.reduce(
-    (acc, next) => ({ ...acc, [next]: newDispatch(next) }),
-    {}
-  )
+import onliReducer from "./onli-reducer"
+import onliTypes from "./onli-types"
+import onliSend from "./onli-send"
 
-  return send
-}
+const onli = actions => [onliReducer(actions), onliTypes(actions)]
 
-export default onliReducer
+export { onliReducer, onliTypes, onliSend }
+export default onli
