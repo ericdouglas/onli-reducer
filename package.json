@@ -4,7 +4,7 @@
   "description": "One line reducer. Simple state management without boilerplate.",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
