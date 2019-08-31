@@ -7,7 +7,7 @@
     "test": "jest --watchAll",
     "test:single": "jest",
     "test:coverage": "jest -- --coverage",
-    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "test:coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
