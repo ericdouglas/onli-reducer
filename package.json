@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "test:coverage": "npm t -- --coverage"
+    "test:coverage": "jest -- --coverage",
+    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babel-jest": "^24.9.0",
+    "coveralls": "^3.0.6",
     "jest": "^24.9.0"
   }
 }
