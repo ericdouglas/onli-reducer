@@ -4,7 +4,8 @@
   "description": "One line reducer. Simple state management without boilerplate.",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watchAll",
+    "test:coverage": "npm t -- --coverage"
   },
   "repository": {
     "type": "git",
