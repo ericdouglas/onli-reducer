@@ -52,7 +52,7 @@ npm install --save onli-reducer
 
 ### Reducer Solution
 
-Instead of create a reducer function with a evergrowing `switch` statement inside of it, you just need to:
+Instead of create a reducer function with an evergrowing `switch` statement inside of it, you just need to:
 
 1. Declare your actions as plain JavaScript functions;
 2. Attach such functions to an `actions` object;
@@ -76,7 +76,7 @@ export { countReducer, types }
 
 ### Dispatch Solution
 
-Istead of manually set type in _every_ dispatch call, you can just:
+Istead of manually set the type in _every_ dispatch call, you can just:
 
 1. Pass your `dispatch` method (from Redux or useReducer) and `types` array (from `onli`) for `onliSend`.
 2. Call your actions directly.
@@ -106,6 +106,9 @@ import { countReducer, types } from "./count.reducer"
 const send = onliSend(dispatch, types)
 const { increment, decrement } = send
 
+// You can also:
+// const { increment, decrement } = onliSend(dispatch, types)
+
 // ...
 
 <Counter
@@ -119,7 +122,7 @@ const { increment, decrement } = send
 
 ### Using onli-reducer with React Hooks + Context
 
-We created a full example with asynchronous calls so you can have a glimpse of how **onli-reducer** would perform in real-world applications.
+See a full example with asynchronous calls so you can have a glimpse of how **onli-reducer** would perform in real-world applications.
 
 In such example app you will see:
 
@@ -130,68 +133,51 @@ In such example app you will see:
 - asynchronous actions called from your reducer
 - more...
 
-See the [live demo here](https://ericdouglas.github.io/onli-reducer-example/) or the [source code here](https://github.com/ericdouglas/onli-reducer-example).
+See the [live demo here](https://ericdouglas.github.io/onli-reducer-example/) and the [source code here](https://github.com/ericdouglas/onli-reducer-example).
 
 ### Using onli-reducer with Redux
 
 To show a comparison between the traditional usage of Redux and the new approach using **onli-reducer**, let's rebuild the _Counter_ app from [Redux docs](https://redux.js.org/introduction/examples#counter).
 
+> Obs: it will be showed only the differences between the two approachs.
+
 `index.js` with Redux:
 
 ```js
-import React from "react"
-import ReactDOM from "react-dom"
-import { createStore } from "redux"
-import Counter from "./components/Counter"
+// ...
 import counter from "./reducers"
 
 const store = createStore(counter)
-const rootEl = document.getElementById("root")
 
-const render = () =>
-  ReactDOM.render(
-    <Counter
-      value={store.getState()}
-      onIncrement={() => store.dispatch({ type: "INCREMENT" })}
-      onDecrement={() => store.dispatch({ type: "DECREMENT" })}
-    />,
-    rootEl
-  )
+// ...
 
-render()
-store.subscribe(render)
+<Counter
+  value={store.getState()}
+  onIncrement={() => store.dispatch({ type: "INCREMENT" })}
+  onDecrement={() => store.dispatch({ type: "DECREMENT" })}
+/>
 ```
 
 `index.js` with Redux + **onli-reducer**:
 
 ```js
-import React from "react"
-import ReactDOM from "react-dom"
+// ...
 import { createStore } from "redux"
 import { onliSend } from "onli-reducer"
-
-import Counter from "./components/Counter"
-
 import { countReducer, types } from "./reducers"
 
 const store = createStore(countReducer, 0)
 const send = onliSend(store.dispatch, types)
 const { increment, decrement } = send
 
-const rootEl = document.getElementById("root")
+// ...
 
-const render = () =>
-  ReactDOM.render(
-    <Counter
-      value={store.getState()}
-      onIncrement={() => increment()}
-      onDecrement={() => decrement()}
-    />,
-    rootEl
-  )
+<Counter
+  value={store.getState()}
+  onIncrement={() => increment()}
+  onDecrement={() => decrement()}
+/>
 
-render()
-store.subscribe(render)
 ```
 
 `reducers/index.js` with Redux:
@@ -227,13 +213,17 @@ You can see/edit the example above here:
 
 [![Edit counter](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/counter-c6vy4?fontsize=14)
 
-> **OBS**: although in this simple example it can not be so evident the benefits of using onli-reducer, for real-world applications the amount of boilerplate code that onli-reducer helps you to not type is considerable.
+> **OBS**: although in this simple example it can not be so evident the benefits of using onli-reducer, for real-world applications the amount of boilerplate code that onli-reducer helps you to **not** type is considerable.
 
 ## Convetions
 
-Inside `your.reducer.js` file, attach your synchronous functions to the actions object and name your asynchronous functions with an underscore, so you now they are both private and async.
+Inside `your.reducer.js` file, attach your synchronous functions to the `actions` object and name your asynchronous functions with an underscore, so you now they are both private and async.
 
-These async functions will be triggered from your sync ones, and after finish their job such async functions will dispatch
+These async functions will be triggered from your sync ones, and after finish their job such async functions will be able to dispatch sync functions to update the state.
+
+**It is a good practice to keep your reducer "pure", only dealing with sync functions.**
+
+You can see how it is implemented in our [example app](#using-onli-reducer-with-react-hooks--context).
 
 ## API
 
@@ -258,7 +248,7 @@ export { countReducer, types }
 
 The `onliSend` method receives a `dispatch` function and a `types` array of strings.
 
-It will return an object with methods attached to it. You will use these methods to dispatch actions in order to update your reducer.
+It will return an object with methods attached to it. You will use these methods to dispatch actions in order to update your state.
 
 ```js
 ///// Without onli-reducer
@@ -275,7 +265,7 @@ increment({ step: 5 })
 This is very useful because with such object you can pass it for async functions so them can dispatch actions to update your state after finish their async tasks.
 
 ```js
-// async action from your reducer
+// async/private action from your reducer
 const _getPokemon = async ({ name, send }) => {
   const { showLoading, hideLoading, updateStore } = send // <- access to your sync methods
 
