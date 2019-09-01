@@ -19,15 +19,18 @@
   - [Basic Concepts](#basic-concepts)
     - [Reducer Solution](#reducer-solution)
     - [Dispatch Solution](#dispatch-solution)
-  - [Usage](#usage)
-  - [Examples](#examples)
+  - [Usage / Examples](#usage--examples)
     - [Using onli-reducer with React Hooks + Context](#using-onli-reducer-with-react-hooks--context)
     - [Using onli-reducer with Redux](#using-onli-reducer-with-redux)
+  - [Convetions](#convetions)
+  - [API](#api)
+    - [`onli(actions)`](#onliactions)
+    - [`onliSend(dispatch, types)`](#onlisenddispatch-types)
 
 ## Benefits over traditional redux/useReducer usage (with `switch`)
 
 - No boilerplate code.
-- _Literaly_ one line reducer (no need to use `switch` statement).
+- _Literally_ one line reducer (no need to use `switch` statement).
 - Direct call to actions without instructions about their `type`.
 - Support for asynchronous calls (dispatch/send actions from async functions).
 - No need to manually write your types.
@@ -75,6 +78,20 @@ Istead of manually set type in _every_ dispatch call, you can just:
 1. Pass your `dispatch` method (from Redux or useReducer) and `types` array (from `onli`) for `onliSend`.
 2. Call your actions directly.
 
+---
+
+**Important**:
+
+All your actions will receive in the `action` object dispatched at least two properties: `type` and `send`. You can pass any additional payload to your actions.
+
+The `type` property is a string to let your reducer know which function it has to invoke.
+
+The `send` property is an object that holds all other public actions so you can pass it to async functions in order to update your state after async calls.
+
+You can see how it is used in a real app [here](#using-onli-reducer-with-react-hooks--context).
+
+---
+
 **Example**:
 
 ```jsx
@@ -95,13 +112,11 @@ const { increment, decrement } = send
 />
 ```
 
-## Usage
-
-## Examples
+## Usage / Examples
 
 ### Using onli-reducer with React Hooks + Context
 
-We created a full example with asynchronous calls so you can have a glimpse of how **onli-reducer** would perform for real-world applications.
+We created a full example with asynchronous calls so you can have a glimpse of how **onli-reducer** would perform in real-world applications.
 
 In such example app you will see:
 
@@ -208,3 +223,68 @@ export { countReducer, types }
 You can see/edit the example above here:
 
 [![Edit counter](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/counter-c6vy4?fontsize=14)
+
+> **OBS**: although in this simple example it can not be so evident the benefits of using onli-reducer, for real-world applications the amount of boilerplate code that onli-reducer helps you to not type is considerable.
+
+## Convetions
+
+Inside `your.reducer.js` file, attach your synchronous functions to the actions object and name your asynchronous functions with an underscore, so you now they are both private and async.
+
+These async functions will be triggered from your sync ones, and after finish their job such async functions will dispatch
+
+## API
+
+### `onli(actions)`
+
+The `onli` method expects an object that contains your public/synchrounous actions. It returns an array with two elements: a reducer (`function`) and an array with strings that represents your types (`[string]`)
+
+```js
+import onli from "onli-reducer"
+
+const increment = state => state + 1
+const decrement = state => state - 1
+
+const actions = { increment, decrement }
+
+const [countReducer, types] = onli(actions)
+
+export { countReducer, types }
+```
+
+### `onliSend(dispatch, types)`
+
+The `onliSend` method receives a `dispatch` function and a `types` array of strings.
+
+It will return an object with methods attached to it. You will use these methods to dispatch actions in order to update your reducer.
+
+```js
+///// Without onli-reducer
+dispatch({ type: "increment" })
+dispatch({ type: "increment", step: 5 })
+
+///// With onli-reducer
+increment()
+increment({ step: 5 })
+```
+
+`onliSend` also adds to your `action` payload an object called `send`, that holds itself, the object returned from calling `onliSend(dispatch, types)` that have access to all your actions.
+
+This is very useful because with such object you can pass it for async functions so them can dispatch actions to update your state after finish their async tasks.
+
+```js
+// async action from your reducer
+const _getPokemon = async ({ name, send }) => {
+  const { showLoading, hideLoading, updateStore } = send // <- access to your sync methods
+
+  showLoading()
+
+  try {
+    const { data } = await axios.get(`${URL}${name}`)
+    updateStore({ pokemon: data }) // <- update your state after success
+    hideLoading()
+  } catch (error) {
+    updateStore({ warning: "Ops... Pokémon not found" }) // <- update your state after failure
+    hideLoading()
+  }
+}
+```
