@@ -230,7 +230,7 @@ You can see how it is implemented in our [example app](#using-onli-reducer-with-
 
 ### `onli(actions)`
 
-The `onli` method expects an object that contains your public/synchrounous actions. It returns an array with two elements: a reducer (`function`) and an array with strings that represents your types (`[string]`)
+The `onli` method expects an object that contains your public/synchrounous actions. It returns an array with two elements: a reducer (`function`) and an array with strings that represents your types (`[string]`).
 
 ```js
 import onli from "onli-reducer"
