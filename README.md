@@ -218,7 +218,7 @@ You can see/edit the example above here:
 
 ## Convetions
 
-Inside `your.reducer.js` file, attach your synchronous functions to the `actions` object and name your asynchronous functions with an underscore, so you now they are both private and async.
+Inside `your.reducer.js` file, attach your synchronous functions to the `actions` object and name your asynchronous functions with an underscore, so you know they are both private and async.
 
 These async functions will be triggered from your sync ones, and after finish their job such async functions will be able to dispatch sync functions to update the state.
 
