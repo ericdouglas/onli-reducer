@@ -26,6 +26,9 @@
   - [API](#api)
     - [`onli(actions)`](#onliactions)
     - [`onliSend(dispatch, types)`](#onlisenddispatch-types)
+    - [`onliReducer(actions)`](#onlireduceractions)
+    - [`onliTypes(actions)`](#onlitypesactions)
+  - [License](#license)
 
 ## Benefits over traditional redux/useReducer usage (with `switch`)
 
@@ -288,3 +291,15 @@ const _getPokemon = async ({ name, send }) => {
   }
 }
 ```
+
+### `onliReducer(actions)`
+
+Receives an `actions` object and return a reducer.
+
+### `onliTypes(actions)`
+
+Receives an `actions` object and return an array with strings (types).
+
+## License
+
+[MIT License](https://ericdouglas.mit-license.org/) © Eric Douglas
