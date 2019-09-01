@@ -1,3 +1,4 @@
+
 # onli-reducer
 
 [![Codeship Status for ericdouglas/onli-reducer](https://app.codeship.com/projects/c69cbcf0-ae10-0137-49b6-5aae0d4b4bf9/status?branch=master)](https://app.codeship.com/projects/362530)
@@ -139,7 +140,7 @@ See the [live demo here](https://ericdouglas.github.io/onli-reducer-example/) an
 
 To show a comparison between the traditional usage of Redux and the new approach using **onli-reducer**, let's rebuild the _Counter_ app from [Redux docs](https://redux.js.org/introduction/examples#counter).
 
-> Obs: it will be showed only the differences between the two approachs.
+> Obs: it will be shown only the differences between the two approaches.
 
 `index.js` with Redux:
 
