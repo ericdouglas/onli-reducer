@@ -25,7 +25,7 @@
   - [Usage / Examples](#usage--examples)
     - [Using onli-reducer with React Hooks + Context](#using-onli-reducer-with-react-hooks--context)
     - [Using onli-reducer with Redux](#using-onli-reducer-with-redux)
-  - [Convetions](#convetions)
+  - [Conventions](#convetions)
   - [API](#api)
     - [`onli(actions)`](#onliactions)
     - [`onliSend(dispatch, types)`](#onlisenddispatch-types)
@@ -218,7 +218,7 @@ You can see/edit the example above here:
 
 > **OBS**: although in this simple example it can not be so evident the benefits of using onli-reducer, for real-world applications the amount of boilerplate code that onli-reducer helps you to **not** type is considerable.
 
-## Convetions
+## Conventions
 
 Inside `your.reducer.js` file, attach your synchronous functions to the `actions` object and name your asynchronous functions with an underscore, so you know they are both private and async.
 
