@@ -4,7 +4,8 @@
   "description": "One line reducer. Simple state management without boilerplate.",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:dev": "jest --watchAll",
     "test:single": "jest",
     "test:coverage": "jest -- --coverage",
     "test:coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
