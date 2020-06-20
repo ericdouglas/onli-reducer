@@ -2,14 +2,21 @@
   "name": "onli-reducer",
   "version": "0.2.2",
   "description": "One line reducer. Simple state management without boilerplate.",
-  "main": "src/index.js",
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
   "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
     "test": "jest",
     "test:dev": "jest --watchAll",
     "test:single": "jest",
     "test:coverage": "jest -- --coverage",
     "test:coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ericdouglas/onli-reducer.git"
@@ -34,6 +41,7 @@
     "@babel/preset-env": "^7.5.5",
     "babel-jest": "^26.0.1",
     "coveralls": "^3.0.6",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "microbundle": "^0.12.2"
   }
 }
