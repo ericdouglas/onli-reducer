@@ -41,7 +41,14 @@
     "@babel/preset-env": "^7.5.5",
     "babel-jest": "^26.0.1",
     "coveralls": "^3.0.6",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "git-commit-msg-linter": "^2.4.2",
+    "husky": "^4.2.5",
     "jest": "^26.0.1",
-    "microbundle": "^0.12.2"
+    "lint-staged": "^10.2.9",
+    "microbundle": "^0.12.2",
+    "prettier": "^2.0.5"
   }
 }
