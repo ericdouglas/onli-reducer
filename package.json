@@ -11,7 +11,8 @@
     "test": "jest",
     "test:dev": "jest --watchAll",
     "test:single": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "files": [
     "dist"
