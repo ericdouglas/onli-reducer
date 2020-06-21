@@ -1,1 +1,3 @@
-export default actions => Object.keys(actions)
+const onliTypes = actions => Object.keys(actions)
+
+export default onliTypes
